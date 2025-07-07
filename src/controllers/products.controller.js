@@ -1,10 +1,3 @@
-
-const products = [
-{ id:1, nombre: "Producto 1", Precio: 10.0, cantidad: 100 },
-{ id:2, nombre: "Producto 2", Precio: 15.0, cantidad: 200 },
-{ id:3, nombre: "Producto 3", Precio: 20.0, cantidad: 300 },
-]
-
 import * as service from "../services/products.service.js";
 
 export const getAllProducts = (req, res) => {
@@ -12,14 +5,8 @@ export const getAllProducts = (req, res) => {
 };
 
 export const searchProduct = (req, res) => {
-  const { name } = req.query;
-
-  const products = service.getAllProducts();
-
-  const filteredProducts = products.filter((p) =>
-    p.name.toLowerCase().includes(name.toLowerCase())
-  );
-
+  const { name } = req.query.name;
+  const filteredProducts = service.filterProducts
   res.json(filteredProducts);
 };
 

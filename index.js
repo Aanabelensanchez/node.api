@@ -2,15 +2,17 @@ import express from 'express';
 const app = express();
 import cors from "cors";
 
+
+app.use(cors());
+app.use(express.json());
+ 
+
 app.get("/Ping", (req, res) => {
   res.send('Pong');
 });
 
-app.use(cors());
-app.use(express.json());
-
-import productsRouter from './src/routes/products.router.js';
-app.use(productsRouter);
+import productsRoutes from './src/routes/products.routes.js';
+app.use('/api',productsRoutes);
 
 app.use((req,res,next)=>{
  res.status(404).send('Recurso no encontrado');

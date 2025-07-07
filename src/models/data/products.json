@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Lámpara de Escritorio",
+    "price": 300
+  },
+  {
+    "id": 2,
+    "name": "Set de Marcadores",
+    "price": 150
+  },
+  {
+    "id": 3,
+    "name": "Teclado Inalámbrico",
+    "price": 950
+  },
+  {
+    "id": 4,
+    "name": "Cafetera Italiana",
+    "price": 480
+  },
+  {
+    "id": 5,
+    "name": "Almohada Ortopédica",
+    "price": 600
+  },
+  {
+    "id": 6,
+    "name": "Silla Plegable",
+    "price": 750
+  },
+  {
+    "id": 7,
+    "name": "Cuadro Decorativo",
+    "price": 400
+  },
+  {
+    "id": 8,
+    "name": "Juego de Vasos",
+    "price": 200
+  },
+  {
+    "id": 9,
+    "name": "Agenda 2025",
+    "price": 180
+  },
+  {
+    "id": 10,
+    "name": "Planta Artificial",
+    "price": 220
+  },
+  {
+    "id": 11,
+    "name": "Mouse Ergonómico",
+    "price": 530
+  },
+  {
+    "id": 12,
+    "name": "Pizarra Blanca Pequeña",
+    "price": 310
+  }
+]

@@ -11,6 +11,11 @@ router.get("/", (req, res) => {
 router.get("/products", getAllProducts);
 router.get("/products/search", searchProduct)
 router.get("/products/:id", getProductById);
+router.post("/products/create", createProduct);
+router.delete("/products/:id", deleteProduct); 
+
+
+app.use('/api', productRoutes);    
 
 
 export default router;
