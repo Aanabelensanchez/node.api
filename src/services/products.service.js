@@ -6,13 +6,6 @@ const products = [
   { id: 5, name: "Botella Térmica", price: 220 },
 ];
 
-export const getAllProducts = () => {
-  return products;
-};
-
-export const getProductById = (id) => {
-  return products.find((item) => item.id == id);
-};
 
 export const filterProducts= (name) => {
   return products.filter((item) => item.name == name);
