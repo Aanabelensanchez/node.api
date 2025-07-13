@@ -16,7 +16,7 @@ if (fs.existsSync(jsonPath)) {
 
 import { db } from '../models/data/firebase.js';
 
-import { collection, getDocs, doc,getDoc, addDoc } from 'firebase/firestore';
+import { collection, getDocs, doc,getDoc, addDoc, deleteDoc,setDoc } from 'firebase/firestore';
 
 const productsCollection = collection(db, "products");
 
@@ -49,16 +49,35 @@ export const createProduct = async (data) => {
   }
 };
 
-export const deleteProduct = (id) => {
-  const productIndex = products.findIndex((p) => p.id === id);
+export const deleteProduct = async (id) => {
+  try {
+    const productRef = doc(productsCollection, id);
+    const snapshot = await getDoc(productRef);
 
-  if (productIndex == -1) {
-    return null;
-  } else {
-    const product = products.splice(productIndex, 1);
+    if (!snapshot.exists()) {
+      return false;
+    }
 
-    fs.writeFileSync(jsonPath, JSON.stringify(products));
-
-    return product;
+    await deleteDoc(productRef);
+    return true;
+  } catch (error) {
+    console.error(error);
   }
 };
+
+export async function updateProduct(id, productData) {
+  try {
+    const productRef = doc(productsCollection, id);
+    const snapshot = await getDoc(productRef);
+
+    if (!snapshot.exists()) {
+      return false;
+    }
+
+    await setDoc(productRef, productData); // reemplazo completo
+    return { id, ...productData };
+  } catch (error) {
+    console.error(error);
+  }
+};
+

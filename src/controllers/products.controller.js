@@ -34,11 +34,28 @@ export const createProduct = async (req, res) => {
   res.status(201).json(newProduct);
 };
 
-export const deleteProduct = (req, res) => {
-  const productId = parseInt(req.params.id, 10);
-  const product = model.deleteProduct(productId);
+
+export const deleteProduct = async (req, res) => {
+  const productId = req.params.id;
+
+  const product = await model.deleteProduct(productId);
+
   if (!product) {
     return res.status(404).json({ error: "Producto no encontrado" });
   }
+
   res.status(204).send();
+};
+
+export const updateProductController = async (req, res) => {
+  const { id } = req.params;
+  const productData = req.body;
+
+  const updatedProduct = await model.updateProduct(id, productData);
+
+  if (!updatedProduct) {
+    return res.status(404).json({ message: 'Producto no encontrado' });
+  }
+
+  return res.status(200).json({ message: 'Producto actualizado', product: updatedProduct });
 };
