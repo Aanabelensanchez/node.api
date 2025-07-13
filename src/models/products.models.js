@@ -16,7 +16,7 @@ if (fs.existsSync(jsonPath)) {
 
 import { db } from '../models/data/firebase.js';
 
-import { collection, getDocs, doc,getDoc } from 'firebase/firestore';
+import { collection, getDocs, doc,getDoc, addDoc } from 'firebase/firestore';
 
 const productsCollection = collection(db, "products");
 
@@ -40,22 +40,14 @@ export const getProductById = async (id) => {
   }
 };
 
-export const createProduct = (data) => {
-
-const newProduct = {
-
-id: products.length +1,
-...data,
-
+export const createProduct = async (data) => {
+  try {
+    const docRef = await addDoc(productsCollection, data);
+    return { id: docRef.id, ...data };
+  } catch (error) {
+    console.error(error);
+  }
 };
-
-products.push(newProduct);
-
-fs.writeFileSync(jsonPath, JSON.stringify(products));
-
-return newProduct;
-
-}
 
 export const deleteProduct = (id) => {
   const productIndex = products.findIndex((p) => p.id === id);

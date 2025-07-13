@@ -26,13 +26,13 @@ export const getProductById = async (req, res) => {
   res.json(product);
 };
 
+export const createProduct = async (req, res) => {
+  const { name, price } = req.body;
 
-export const createProduct = (req, res) => {
-  const { name,price } = req.body;
-  const newProduct = model.createProduct ( {name, price} ); 
+  const newProduct = await model.createProduct({ name, price });
+
   res.status(201).json(newProduct);
 };
-
 
 export const deleteProduct = (req, res) => {
   const productId = parseInt(req.params.id, 10);
