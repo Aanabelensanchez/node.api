@@ -59,3 +59,33 @@ export const updateProductController = async (req, res) => {
 
   return res.status(200).json({ message: 'Producto actualizado', product: updatedProduct });
 };
+
+
+export const partialUpdateProductController = async (req, res) => {
+  console.log("PATCH /products/:id/partial-update recibido");
+  console.log("ID:", req.params.id);
+  console.log("Body:", req.body);
+
+  const { id } = req.params;
+  const { name, price } = req.body;
+
+  const updates = {};
+  if (name !== undefined) updates.name = name;
+  if (price !== undefined) updates.price = price;
+
+  if (Object.keys(updates).length === 0) {
+    return res.status(400).json({ message: "Solo se puede actualizar el precio o el nombre" });
+  }
+
+  try {
+    const updated = await model.partialUpdateProduct(id, updates);
+
+    if (!updated) {
+      return res.status(404).json({ message: "Producto no encontrado." });
+    }
+
+    return res.status(200).json(updated);
+  } catch (error) {
+    res.status(500).json({ message: "Error actualizando producto.", error: error.message });
+  }
+};
