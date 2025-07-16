@@ -16,7 +16,7 @@ if (fs.existsSync(jsonPath)) {
 
 import { db } from '../models/data/firebase.js';
 
-import { collection, getDocs, doc,getDoc, addDoc, deleteDoc,setDoc } from 'firebase/firestore';
+import { collection, getDocs, doc,getDoc, addDoc, deleteDoc,setDoc,updateDoc} from 'firebase/firestore';
 
 const productsCollection = collection(db, "products");
 
@@ -74,10 +74,29 @@ export async function updateProduct(id, productData) {
       return false;
     }
 
-    await setDoc(productRef, productData); // reemplazo completo
+    await setDoc(productRef, productData);
     return { id, ...productData };
   } catch (error) {
     console.error(error);
   }
 };
+
+export async function partialUpdateProduct(id, updates) {
+  try {
+    const productRef = doc(productsCollection, id);
+    const snapshot = await getDoc(productRef);
+
+    if (!snapshot.exists()) {
+      return false;
+    }
+
+    await setDoc(productRef, updates, { merge: true });
+
+    const updatedDoc = await getDoc(productRef);
+    return { id: updatedDoc.id, ...updatedDoc.data() };
+  } catch (error) {
+    console.error("Error in partialUpdateProduct:", error);
+    throw error;
+  }
+}
 

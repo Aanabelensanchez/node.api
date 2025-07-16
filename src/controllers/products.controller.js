@@ -74,7 +74,7 @@ export const partialUpdateProductController = async (req, res) => {
   if (price !== undefined) updates.price = price;
 
   if (Object.keys(updates).length === 0) {
-    return res.status(400).json({ message: "Solo se puede actualizar el precio o el nombre" });
+    return res.status(400).json({ message: "Solo se puede actualizar el precio o el nombre en caso de querer actualizar el producto completo dirigase a la ruta correspondiente" });
   }
 
   try {
