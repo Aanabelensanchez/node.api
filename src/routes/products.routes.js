@@ -5,12 +5,14 @@ const router = Router();
 router.get("/", (req, res) => {
   res.send('<h1>Hola Api</h1>');
 });
-
+ 
+/*  Elegi la segunda opcion que menciono el profe en la clase 15- Minuto 49  */ 
+import { auth } from "../middlewares/auth.middleware.js";
 
 
 router.get("/products", getAllProducts);
 router.get("/products/search", searchProduct)
-router.get("/products/:id", getProductById);
+router.get("/products/:id", auth , getProductById);
 router.post("/products", createProduct);
 router.delete("/products/:id", deleteProduct); 
 router.put('/products/:id', updateProductController);
