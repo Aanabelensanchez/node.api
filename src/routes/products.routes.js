@@ -12,8 +12,8 @@ import { auth } from "../middlewares/auth.middleware.js";
 
 router.get("/products", getAllProducts);
 router.get("/products/search", searchProduct)
-router.get("/products/:id", auth , getProductById);
-router.post("/products", createProduct);
+router.get("/products/:id", auth, getProductById);
+router.post("/products", auth, createProduct);
 router.delete("/products/:id", deleteProduct); 
 router.put('/products/:id', updateProductController);
 router.patch('/products/:id/partial-update', partialUpdateProductController);
